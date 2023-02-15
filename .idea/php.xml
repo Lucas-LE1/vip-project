@@ -121,6 +121,7 @@
       <path value="$PROJECT_DIR$/back-vip/vendor/symfony/var-dumper" />
       <path value="$PROJECT_DIR$/back-vip/vendor/symfony/yaml" />
       <path value="$PROJECT_DIR$/back-vip/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/back-vip/vendor/firebase/php-jwt" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />

@@ -117,6 +117,7 @@
       <excludeFolder url="file://$MODULE_DIR$/back-vip/vendor/symfony/var-dumper" />
       <excludeFolder url="file://$MODULE_DIR$/back-vip/vendor/symfony/yaml" />
       <excludeFolder url="file://$MODULE_DIR$/back-vip/vendor/theseer/tokenizer" />
+      <excludeFolder url="file://$MODULE_DIR$/back-vip/vendor/firebase/php-jwt" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
