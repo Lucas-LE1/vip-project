@@ -10,16 +10,13 @@ use PHPUnit\Exception;
 class UsersModel extends Model
 {
     use HasFactory;
-
-    public string $mode;
-
-    protected mixed $usersRead;
-    protected string $filename = __DIR__ . '/../../../database/temp/users.json';
+    protected static mixed $usersRead;
+    protected static string $filename = __DIR__ . '/../../../database/temp/users.json';
 
     public function __construct()
     {
         parent::__construct();
-        $this->usersRead = json_decode(file_get_contents($this->filename));
+        self::$usersRead = json_decode(file_get_contents(self::$filename));
     }
 
     /*
@@ -34,24 +31,44 @@ class UsersModel extends Model
      * @return int | JsonResponse
      * */
 
-    public function create(array $data) : int | JsonResponse
+    public static function create(array $data) : int | JsonResponse
     {
 
-        if (empty($this->usersRead)) {
+        if (empty(self::$usersRead)) {
             $id = 0;
         } else {
-            $id = end($this->usersRead)->id+1;
+            $id = end(self::$usersRead)->id+1;
         }
-        $this->usersRead[] = array_merge(['id'=>$id], $data);
+        self::$usersRead[] = array_merge(['id'=>$id], $data);
 
         try {
-            file_put_contents($this->filename, json_encode($this->usersRead));
+            file_put_contents(self::$filename, json_encode(self::$usersRead));
             return $id;
         } catch (Exception $exception) {
             return response()->json([
                 'error'=>'failed database save'
             ],406);
         }
+
+    }
+
+    public static function is_user(string $email) {
+
+        if (!empty(self::$usersRead)) {
+
+            $userFilter = array_filter(self::$usersRead, function ($item) use ($email) {
+                return $item->email == $email;
+            });
+            if (!empty($userFilter))
+                return $userFilter;
+        }
+        return null;
+    }
+
+    public function is_admin(array|null $email) {
+        $user = $this->is_user($email);
+
+        return $user->admin;
 
     }
 

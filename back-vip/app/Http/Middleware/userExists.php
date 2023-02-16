@@ -2,11 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\api\UsersModel;
 use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use function PHPUnit\Framework\isEmpty;
 
 class userExists
 {
@@ -15,27 +17,21 @@ class userExists
     /**
      * Handle an incoming request.
      * @param Request $request
-     * @param Closure(Request): (Response|RedirectResponse) $next
-     * @return Response|RedirectResponse | JsonResponse
+     * @param Closure $next
+     * @return Response|RedirectResponse|JsonResponse
      */
     public function handle(Request $request, Closure $next): Response | RedirectResponse | JsonResponse
     {
-        $filename = __DIR__ . '/../../../database/temp/users.json';
 
-        $usersRead = json_decode(file_get_contents($filename));
+//        $model = new UsersModel();
+        $validated = UsersModel::is_user($request['email']);
 
-        if (!empty($usersRead)) {
-            $email = $request['email'];
+        if (is_null($validated))
+            return $next($request);
 
-            $new = array_filter($usersRead, function ($item) use ($email) {
-                return $item->email == $email;
-            });
-
-            if (!empty($new))
-                return $next($request);
-        }
-
-        return $next($request);
+        return \response()->json([
+            'error'=>'email address in user'
+        ],401);
 
     }
 }

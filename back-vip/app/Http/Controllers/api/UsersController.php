@@ -17,35 +17,28 @@ class UsersController extends Controller
         $this->model = new UsersModel();
     }
 
-    public function createUser(Request $request, $user )
+    public function createUser(Request $request): JsonResponse
     {
-        return '$user';
-//        if ($userExists)
-//            return response()->json([
-//                'error' => 'email address in use'
-//            ], 401);
-//        else {
-//
-//            $data = $request->only(['email', 'password', 'admin']);
-//            $statusData = $this->model->create($data);
-//
-//            $key = env('JWT_SECRET_KEY');
-//            $payload = [
-//                'id' => $statusData,
-//                'iss' => env('APP_URL'),
-//                'aud' => $request->fullUrl(),
-//                'iat' => 1356999524,
-//                'nbf' => 1357000000
-//            ];
-//
-//            $jwt = JWT::encode($payload, $key, 'HS256');
-//
-//            return response()->json([
-//                'token' => $jwt,
-//                'type' => 'bearer'
-//            ]);
-//        }
+        $data = $request->only(['email', 'password', 'admin']);
+        $statusData = UsersModel::create($data);
 
+        $key = env('JWT_SECRET_KEY');
+        $payload = [
+            'id' => $statusData,
+            'iss' => env('APP_URL'),
+            'aud' => $request->fullUrl(),
+            'iat' => 1356999524,
+            'nbf' => 1357000000,
+            'exp' => time() + 10
+        ];
+
+        $token = JWT::encode($payload, $key, 'HS256');
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => $payload['exp']
+        ]);
 
     }
 }
