@@ -52,21 +52,44 @@ class UsersModel extends Model
 
     }
 
-    public static function is_user(string $email) {
+    /**
+     * @param array $data
+     * @return mixed|null
+     */
+    public static function email_in_use(array $data): mixed
+    {
+        $email = $data['email'];
 
-        if (!empty(self::$usersRead)) {
-
-            $userFilter = array_filter(self::$usersRead, function ($item) use ($email) {
-                return $item->email == $email;
-            });
-            if (!empty($userFilter))
-                return $userFilter;
-        }
+            foreach (self::$usersRead as &$item) {
+                if ($item->email == $email)
+                    return $item;
+            }
         return null;
     }
 
-    public function is_admin(array|null $email) {
-        $user = $this->is_user($email);
+    /**
+     * @param array $data
+     * @return mixed|null
+     */
+    public static function is_user(array $data) : mixed
+    {
+        $password = $data['password'];
+
+        $user = self::email_in_use($data);
+
+        if($user->password === $password)
+            return $user;
+        return null;
+
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function is_admin(array $data): mixed
+    {
+        $user = self::is_user($data);
 
         return $user->admin;
 

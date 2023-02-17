@@ -23,8 +23,12 @@ class userExists
     public function handle(Request $request, Closure $next): Response | RedirectResponse | JsonResponse
     {
 
-//        $model = new UsersModel();
-        $validated = UsersModel::is_user($request['email']);
+        $data = [
+            'email'=>$request['email'],
+            'password'=>$request['password']
+        ];
+
+        $validated = UsersModel::email_in_use($data);
 
         if (is_null($validated))
             return $next($request);
