@@ -26,9 +26,39 @@ class UsersController extends JWTController
         $data = $request->only(['email', 'password', 'admin']);
         (int)$id = UsersModel::create($data);
 
-        $token = $this->JWTCreateToken($request, $id);
+        $token = $this->JWTCreateToken($request,$id);
 
         return $this->respondWithToken($token);
 
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function loginUser(Request $request): JsonResponse
+    {
+
+        $data = $request->only(['email', 'password']);
+
+        $user = UsersModel::is_user($data);
+
+        $token = JWTController::JWTCreateToken($request,$user->id);
+
+        return $this->respondWithToken($token);
+
+    }
+
+    /**
+     * @param $token
+     * @return JsonResponse
+     */
+    protected function respondWithToken($token): JsonResponse
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+//            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
     }
 }
