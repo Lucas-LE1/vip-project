@@ -34,7 +34,7 @@ class JWTController extends Controller
      * @param int $id
      * @return string
      */
-    public static function JWTCreateToken(Request $request, int $id): string
+    public function JWTCreateToken(Request $request, int $id): string
     {
         self::init($id,$request->getUri());
 

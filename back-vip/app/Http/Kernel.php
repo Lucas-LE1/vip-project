@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'fileExists' => \App\Http\Middleware\filesExists::class,
         'userExists' => \App\Http\Middleware\userExists::class,
         'userToken' => \App\Http\Middleware\userToken::class,
+        'checkAdmin' => \App\Http\Middleware\checkAdmin::class,
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models\api;
 
+use App\Http\Controllers\api\JWTController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
@@ -87,11 +88,9 @@ class UsersModel extends Model
      * @param array $data
      * @return mixed
      */
-    public function is_admin(array $data): mixed
+    public function is_admin(?string $token): mixed
     {
-        $user = self::is_user($data);
 
-        return $user->admin;
 
     }
 
