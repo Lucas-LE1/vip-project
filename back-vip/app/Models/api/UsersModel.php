@@ -2,15 +2,16 @@
 
 namespace App\Models\api;
 
-use App\Http\Controllers\api\JWTController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 use PHPUnit\Exception;
 
 class UsersModel extends Model
 {
     use HasFactory;
+
     protected static mixed $usersRead;
     protected static string $filename = __DIR__ . '/../../../database/temp/users.json';
 
@@ -32,23 +33,25 @@ class UsersModel extends Model
      * @return int | JsonResponse
      * */
 
-    public static function create(array $data) : int | JsonResponse
+    public static function create(array $data): int|JsonResponse
     {
+
+        $data['password'] = Hash::make($data['password']);
 
         if (empty(self::$usersRead)) {
             $id = 0;
         } else {
-            $id = end(self::$usersRead)->id+1;
+            $id = end(self::$usersRead)->id + 1;
         }
-        self::$usersRead[] = array_merge(['id'=>$id], $data);
+        self::$usersRead[] = array_merge(['id' => $id], $data);
 
         try {
             file_put_contents(self::$filename, json_encode(self::$usersRead));
             return $id;
         } catch (Exception $exception) {
             return response()->json([
-                'error'=>'failed database save'
-            ],406);
+                'error' => 'failed database save'
+            ], 406);
         }
 
     }
@@ -61,37 +64,40 @@ class UsersModel extends Model
     {
         $email = $data['email'];
 
-            foreach (self::$usersRead as &$item) {
-                if ($item->email == $email)
-                    return $item;
-            }
+        if (is_null(self::$usersRead))
+            return null;
+
+        foreach (self::$usersRead as &$item) {
+            if ($item->email == $email)
+                return $item;
+        }
         return null;
+
     }
 
     /**
      * @param array $data
      * @return mixed|null
      */
-    public static function is_user(array $data) : mixed
+    public static function is_user(array $data): mixed
     {
-        $password = $data['password'];
 
         $user = self::email_in_use($data);
 
-        if($user->password === $password)
+        if ($password = Hash::check($data['password'], $user->password))
             return $user;
         return null;
 
     }
 
     /**
-     * @param array $data
+     * @param string|null $token
      * @return mixed
      */
     public function is_admin(?string $token): mixed
     {
 
-
+        return null;
     }
 
 

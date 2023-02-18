@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use function PHPUnit\Framework\isEmpty;
 
 class userExists
@@ -25,7 +26,7 @@ class userExists
 
         $data = [
             'email'=>$request['email'],
-            'password'=>$request['password']
+            'password'=>Hash::make($request['password'])
         ];
 
         $validated = UsersModel::email_in_use($data);
