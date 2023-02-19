@@ -1,1 +1,8 @@
-[{"id":0,"email":"cred@vip.coms","password":"$2y$10$g8RyEjJXr.RUzfDzAjsaPOZHaqJosIau8lg05lFkIvqKcAymVQGRq","admin":"true"}]
+[
+    {
+        "id": 0,
+        "email": "cred@vip.com",
+        "password": "$2y$10$XBbJhgcx5P\/ksZGRiRHS7Ocb2PsST2kk\/3aDEc2NxbrC2W\/dxhzS6",
+        "admin": true
+    }
+]

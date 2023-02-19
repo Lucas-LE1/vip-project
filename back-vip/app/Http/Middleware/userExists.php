@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\api\UsersModel;
+use App\Models\api\Users;
 use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -21,15 +21,23 @@ class userExists
      * @param Closure $next
      * @return Response|RedirectResponse|JsonResponse
      */
-    public function handle(Request $request, Closure $next): Response | RedirectResponse | JsonResponse
+    public function handle(Request $request, Closure $next): Response | RedirectResponse | JsonResponse | null
     {
+        $inputs = ['email', 'password', 'admin'];
+
+        if (!$request->has($inputs))
+            return \response()->json([
+                'error'=>'invalid input'
+            ],401);
 
         $data = [
             'email'=>$request['email'],
             'password'=>Hash::make($request['password'])
         ];
 
-        $validated = UsersModel::email_in_use($data);
+
+
+        $validated = Users::email_in_use($data);
 
         if (is_null($validated))
             return $next($request);

@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use PHPUnit\Exception;
 
-class UsersModel extends Model
+class Users extends Model
 {
     use HasFactory;
 
@@ -29,16 +29,17 @@ class UsersModel extends Model
      * | password => string |
      * | admin => bool      |
      * ----------------------
-     *
+     */
+
+    /*
      * @return int | JsonResponse
      * */
 
-    public static function create(array $data): int|JsonResponse
+    public static function insert(array $data): int|JsonResponse
     {
-
         $data['password'] = Hash::make($data['password']);
 
-        if (empty(self::$usersRead)) {
+        if (!self::$usersRead) {
             $id = 0;
         } else {
             $id = end(self::$usersRead)->id + 1;
@@ -57,47 +58,64 @@ class UsersModel extends Model
     }
 
     /**
-     * @param array $data
+     * @param array|null $data
+     * @param int|null $id_user
      * @return mixed|null
      */
-    public static function email_in_use(array $data): mixed
+    public static function email_in_use(?array $data = null, ?int $id_user = null): mixed
     {
-        $email = $data['email'];
 
-        if (is_null(self::$usersRead))
+        if (!self::$usersRead)
             return null;
 
         foreach (self::$usersRead as &$item) {
-            if ($item->email == $email)
-                return $item;
+
+            if (isset($id_user)) {
+                if ($item->id == $id_user) {
+                    return $item;
+                }
+            } elseif ($data) {
+                if ($item->email == $data['email']) {
+                    return $item;
+                }
+            }
+
         }
         return null;
 
     }
 
     /**
-     * @param array $data
+     * @param array|null $data
+     * @param int|null $id_user
      * @return mixed|null
      */
-    public static function is_user(array $data): mixed
+    public static function is_user(array $data = null, int $id_user = null): mixed
     {
 
-        $user = self::email_in_use($data);
+        $user = self::email_in_use(data: $data, id_user: $id_user);
 
-        if ($password = Hash::check($data['password'], $user->password))
+        if (isset($id_user))
+            return $user;
+
+        if ($user && Hash::check($data['password'], $user->password))
             return $user;
         return null;
 
     }
 
     /**
-     * @param string|null $token
+     * @param int $id_user
      * @return mixed
      */
-    public function is_admin(?string $token): mixed
+    public static function is_admin(int $id_user): bool
     {
-
-        return null;
+        $user = self::is_user(id_user: $id_user);
+        if ($user) {
+            return $user->admin;
+        } else {
+            return 0;
+        }
     }
 
 

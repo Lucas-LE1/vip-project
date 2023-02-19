@@ -3,30 +3,35 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\api\UsersModel;
+use App\Models\api\Users;
 use Firebase\JWT\JWT;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UsersController extends JWTController
 {
-    protected UsersModel $model;
+    protected Users $model;
 
     public function __construct()
     {
-        $this->model = new UsersModel();
+        $this->model = new Users();
+        date_default_timezone_set('America/Sao_Paulo');
+
     }
 
     /**
      * @param Request $request
      * @return JsonResponse
+     * @throws \Exception
      */
-    public function register(Request $request): JsonResponse
+    public function insert(Request $request): JsonResponse
     {
-        $data = $request->only(['email', 'password', 'admin']);
-        (int)$id = UsersModel::create($data);
+        $inputs = ['email', 'password', 'admin'];
 
-        $token = $this->JWTCreateToken($request,$id);
+        $data = $request->only($inputs);
+        (int)$id = Users::insert($data);
+
+        $token = $this->JWTCreateToken($request, $id);
 
         return $this->respondWithToken($token);
 
@@ -41,12 +46,12 @@ class UsersController extends JWTController
 
         $data = $request->only(['email', 'password']);
 
-        $user = UsersModel::is_user($data);
+        $user = Users::is_user($data);
 
-        if(is_null($user))
+        if (is_null($user))
             return response()->json(['error' => 'User or password incorrect'], 401);
 
-        $token = JWTController::JWTCreateToken($request,$user->id);
+        $token = JWTController::JWTCreateToken($request, $user->id);
 
         return $this->respondWithToken($token);
 
@@ -58,10 +63,12 @@ class UsersController extends JWTController
      */
     protected function respondWithToken($token): JsonResponse
     {
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => time() + 10
+            'expires_in' => date('d/m/Y \à\s H:i:s', time() + 3600)
+
         ]);
     }
 }

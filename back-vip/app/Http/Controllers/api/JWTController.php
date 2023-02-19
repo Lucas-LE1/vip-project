@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Firebase\JWT\SignatureInvalidException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use stdClass;
 
 class JWTController extends Controller
 {
@@ -22,9 +26,9 @@ class JWTController extends Controller
             'id' => $id,
             'iss' => env('APP_URL'),
             'aud' => $uri,
-            'iat' => 1356999524,
+            'iat' => time(),
             'nbf' => 1357000000,
-            'exp' => time() + 10
+            'exp' => time() + 3600
         ];
 
     }
@@ -43,9 +47,17 @@ class JWTController extends Controller
         return JWT::encode(self::$payload, $key, 'HS256');
 
     }
-    public static function JWTValidate(string $token): \stdClass
+    public static function JWTValidate(string $token): JsonResponse|array
     {
         $key = env('JWT_SECRET_KEY');
-        return JWT::decode($token, new Key($key, 'HS256'));
+
+        try {
+
+        return (array)JWT::decode($token, new Key($key, 'HS256'));
+        }catch (ExpiredException|SignatureInvalidException $exception) {
+            return response()->json([
+                'error' => 'unauthorized token'
+            ],401);
+        }
     }
 }
