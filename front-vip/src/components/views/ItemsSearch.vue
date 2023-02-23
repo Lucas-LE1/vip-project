@@ -17,7 +17,7 @@
             <img src="../icons/search.svg" alt="" class="icon"/>
             <input type="text" class="input_search" placeholder="Find by name or synopsis">
           </div>
-          <button class="button_search">buscar agora</button>
+          <button class="button_search">Search now</button>
         </div>
       </div>
       <img src="../icons/allegorical.svg " alt="Imagem alegorica de carnaval" srcset="" class="img_cover">

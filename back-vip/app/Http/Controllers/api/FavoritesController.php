@@ -52,14 +52,16 @@ class FavoritesController extends Controller
 
         $validate = (new Users)::is_admin($id_user);
 
-        if ($validate)
-            $userFavorites = Favorites::select(token: $token);
-        else
+        if ($validate) {
+            $userFavorites = Favorites::select($id_user);
+            $userFavorites = $userFavorites ? $userFavorites['favorites'] : [];
+        } else {
             $userFavorites = null;
+        }
 
         return response()->json([
             'list' => $items->json(),
-            'favorites' => $userFavorites ? $userFavorites->favorites : $userFavorites
+            'favorites' => $userFavorites
         ]);
     }
 }

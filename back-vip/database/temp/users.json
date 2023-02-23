@@ -1,14 +1,1 @@
-[
-    {
-        "id": 0,
-        "email": "cred@vip.com",
-        "password": "$2y$10$wI3.CHTv7thY4ZX1dXO8r.BELYIDhJgkc4NGUvaPmK\/JPx.fQabRW",
-        "admin": 1
-    },
-    {
-        "id": 1,
-        "email": "vip@vip.com",
-        "password": "$2y$10$AB.LijIug69Rn28F6okqfuKLUuYjq2hbv.lFDW\/fnipYwDQJODc16",
-        "admin": 1
-    }
-]
+[{"id":0,"email":"cred@vip.com","password":"$2y$10$X9qLmT9oSKpbfFCDJ7r5XuD7YR90KSjAVhmquMDtYzdoxJzJlA5Hq","admin":1},{"id":1,"email":"vip@vip.com","password":"$2y$10$Eg9v6rkbh5NGnnY1zuOewO87UnU16CMXS34tC9gehh9sN7KYFFw1C","admin":1}]
