@@ -92,8 +92,10 @@ class Users extends Model
      */
     public static function is_user(array $data = null, int $id_user = null): mixed
     {
-
+        print_r('is_user:'.$id_user);
         $user = self::email_in_use(data: $data, id_user: $id_user);
+
+        print_r($user);
 
         if (isset($id_user))
             return $user;
@@ -105,16 +107,16 @@ class Users extends Model
     }
 
     /**
-     * @param int $id_user
-     * @return mixed
+     * @param int|null $id_user
+     * @return bool|null
      */
-    public static function is_admin(int $id_user): bool
+    public static function is_admin(?int $id_user): ?bool
     {
         $user = self::is_user(id_user: $id_user);
         if ($user) {
             return $user->admin;
         } else {
-            return 0;
+            return null;
         }
     }
 

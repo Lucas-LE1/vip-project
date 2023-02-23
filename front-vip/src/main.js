@@ -1,6 +1,10 @@
-import { createApp } from 'vue'
+import {router} from "@/routes";
+import {createApp} from 'vue'
 import App from './App.vue'
-
 import './assets/main.css'
+import './env'
 
-createApp(App).mount('#app')
+
+const app = createApp(App)
+    .use(router)
+    .mount('#app')

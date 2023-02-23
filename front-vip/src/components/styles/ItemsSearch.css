@@ -1,0 +1,260 @@
+@media (max-width: 1024px) {
+    .template_search {
+
+        margin: -2em;
+        transition: 1s;
+    }
+}
+
+.template_search {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    grid-column: 1/4;
+}
+
+.header_search {
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1/4;
+}
+
+.div_search {
+    width: 100lvw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+    position: absolute;
+    gap: 2.5rem;
+}
+
+.img_cover {
+    width: 100%;
+    height: auto;
+}
+
+.texts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    gap: 1.2em;
+}
+
+.find_message {
+    text-transform: uppercase;
+    line-height: 160%;
+    letter-spacing: 0.1em;
+    color: #E45858;
+}
+
+.title {
+    display: flex;
+    gap: 14px;
+}
+
+.title_page_search {
+    text-transform: capitalize;
+    font-size: 2.5em;
+    font-weight: 700;
+    line-height: 125%;
+    color: #121214;
+    display: flex;
+}
+
+.contrast {
+    color: #6246EA;
+}
+
+.input_div {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 2.5rem;
+    gap: 1.5rem;
+    background: #202024;
+    border: 1px solid #EAEAEA;
+    border-radius: 10px;
+    width: 80%;
+}
+
+.img_input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 8px 12px 14px;
+    gap: 12px;
+
+    border-radius: 5px;
+    width: 100%;
+}
+
+.input_search {
+    background: transparent;
+    outline: none;
+    border: 0;
+    width: 100%;
+    color: #FFFFFF;
+}
+
+.button_search {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 20px;
+    gap: 8px;
+    width: 24%;
+    height: 1.5em;
+    border: 0;
+    box-sizing: content-box;
+
+    text-transform: uppercase;
+    color: #ffffff;
+
+    background: #6246EA;
+    transition: 1s;
+    border-radius: 5px;
+}
+
+.button_search:hover {
+    background: #4120ef;
+    transition: 1s;
+}
+.button_search:active {
+    scale: .9;
+    transition: 1s;
+}
+
+.div_list {
+    display: flex;
+    position: relative;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    gap: 2em;
+}
+
+@media (max-width: 1024px) {
+    .list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+    .list {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.item {
+    box-sizing: border-box;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /*align-items: flex-start;*/
+    padding: 5%;
+    gap: 1em;
+
+    background: #202024;
+    border: 1px solid #1a1919;
+    border-radius: 10px;
+}
+
+.div_img {
+    display: flex;
+    width: 110%;
+    top: -6%;
+    left: -5%;
+    right: -5%;
+}
+
+.img_movie {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.title_movie {
+    color: #FFFFFF;
+    font-weight: 700;
+    line-height: 140%;
+    letter-spacing: 0.085em;
+}
+
+.synopses_movie {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.div_title_movie {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img_favorite {
+    width: 25px;
+    height: auto;
+}
+
+.img_favorite:active {
+    scale: .8;
+}
+.img_favorite:hover {
+    scale: 1.2;
+}
+
+.div_list {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em 0 1em;
+    gap: 2.5em;
+}
+
+.title_list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.recommend_movie {
+    color: #FFFFFF;
+    font-size: 2em;
+    font-weight: 700;
+    line-height: 140%;
+    text-transform: capitalize;
+}
+
+.button_save_favorites {
+    padding: 0 30px;
+    border-radius: 5px;
+    background: #6246EA;
+    transition: .5s;
+    outline: none;
+    border: 0;
+    font-size: .85em;
+    line-height: .5em;
+    color: #FFFFFF;
+}
+
+.button_save_favorites:hover {
+    background: #4120ef;
+    transition: .5s;
+}
+
+.button_save_favorites:active {
+    scale: .8;
+    transition: .5s;
+}

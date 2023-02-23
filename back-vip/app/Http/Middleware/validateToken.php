@@ -22,16 +22,14 @@ class validateToken
 
     {
         (string)$token = $request->bearerToken();
-        if (!$token)
-            return $next($request);
 
         try {
             $validated = JWTController::JWTValidate($token);
 
-            return $next($request);
         } catch (\Exception $exception) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Unauthorized Token'], 401);
         }
+            return $next($request);
 
     }
 }

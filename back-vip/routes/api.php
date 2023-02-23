@@ -9,8 +9,8 @@ Route::group([
 ], function () {
 
     Route::prefix('users')->group(function () {
-        Route::post('insert', [UsersController::class, 'insert']);
-        Route::post('login', [UsersController::class, 'login'])->withoutMiddleware(['userExists']);
+        Route::post('insert', [UsersController::class, 'insert'])->withoutMiddleware('validateToken');
+        Route::post('login', [UsersController::class, 'login'])->withoutMiddleware(['userExists','validateToken']);
     });
 
     Route::prefix('items')->group(function () {

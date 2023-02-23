@@ -18,28 +18,25 @@ class checkAdmin
      * @param Request $request
      * @param Closure $next
      * @return JsonResponse|Response|RedirectResponse
+     * @throws \ErrorException
      */
     public function handle(Request $request, Closure $next): JsonResponse|Response|RedirectResponse
     {
-        if (!$request->has(['favorites', 'token']))
+        (string)$token = $request->bearerToken();
+        if (!$request->has(['favorites']) && !$token)
             return response()->json([
                 'error' => 'invalid input'
             ],401);
 
-        (string)$token = $request['token'];
 
         $user = JWTController::JWTValidate($token);
-
-        if(!is_array($user)){
-            return $user;
-        }
 
         $validate = (new Users)::is_admin($user['id']);
         if($validate)
             return $next($request);
         else {
             return response()->json([
-                'error' => 'unauthorized'
+                'error' => 'unauthorized admin'
             ],401);
         }
     }

@@ -5,8 +5,7 @@ namespace App\Models\api;
 use App\Http\Controllers\api\JWTController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
-use function PHPUnit\Framework\isEmpty;
+
 
 class Favorites extends Model
 {
@@ -26,9 +25,10 @@ class Favorites extends Model
     /**
      * @param array $favorites
      * @param string $token
-     * //     * @return mixed
+     * //     * @return array
+     * @throws \ErrorException
      */
-    public static function updDoc(array $favorites, string $token): mixed
+    public static function updDoc(array $favorites, string $token): array
     {
         $jwt = JWTController::JWTValidate($token);
         $id_user = (int)$jwt['id'];
@@ -63,20 +63,27 @@ class Favorites extends Model
     }
 
     /**
-     * @param int $id_user
+     * @param int|null $id_user
+     * @param string|null $token
      * @return mixed
      */
-    public static function select(int $id_user): mixed
+    public static function select(?int $id_user,?string $token=null): mixed
     {
-
         if (!self::$favoritesRead)
             return null;
 
+        print_r($id_user);
+
         foreach (self::$favoritesRead as &$item) {
-            if ($item->id_user == $id_user)
+
+            if ($item->id_user == $id_user){
+                print_r($item);
                 return $item;
+            }
         }
-        return null;
+        return [
+            'favorites'=>[]
+        ];
 
     }
 

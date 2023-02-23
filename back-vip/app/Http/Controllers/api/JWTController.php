@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use ErrorException;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -40,24 +41,26 @@ class JWTController extends Controller
      */
     public function JWTCreateToken(Request $request, int $id): string
     {
-        self::init($id,$request->getUri());
+        self::init($id, $request->getUri());
 
         $key = env('JWT_SECRET_KEY');
 
         return JWT::encode(self::$payload, $key, 'HS256');
 
     }
-    public static function JWTValidate(string $token): JsonResponse|array
+
+    /**
+     * @throws ErrorException
+     */
+    public static function JWTValidate(string $token): array
     {
         $key = env('JWT_SECRET_KEY');
 
         try {
+            return (array)JWT::decode($token, new Key($key, 'HS256'));
+        } catch (ExpiredException|SignatureInvalidException $exception) {
+            throw new ErrorException('unauthorized token');
 
-        return (array)JWT::decode($token, new Key($key, 'HS256'));
-        }catch (ExpiredException|SignatureInvalidException $exception) {
-            return response()->json([
-                'error' => 'unauthorized token'
-            ],401);
         }
     }
 }

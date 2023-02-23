@@ -2,7 +2,13 @@
     {
         "id": 0,
         "email": "cred@vip.com",
-        "password": "$2y$10$XBbJhgcx5P\/ksZGRiRHS7Ocb2PsST2kk\/3aDEc2NxbrC2W\/dxhzS6",
-        "admin": true
+        "password": "$2y$10$wI3.CHTv7thY4ZX1dXO8r.BELYIDhJgkc4NGUvaPmK\/JPx.fQabRW",
+        "admin": 1
+    },
+    {
+        "id": 1,
+        "email": "vip@vip.com",
+        "password": "$2y$10$AB.LijIug69Rn28F6okqfuKLUuYjq2hbv.lFDW\/fnipYwDQJODc16",
+        "admin": 1
     }
 ]
