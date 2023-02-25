@@ -8,8 +8,9 @@
         </span>
           <div class="title">
             <h1 class="title_page_search">
-              find the <h1 class="title_page_search contrast">best movie</h1>
+              find the
             </h1>
+            <h1 class="title_page_search contrast">best movie</h1>
           </div>
         </div>
         <div class="input_div">
@@ -17,7 +18,7 @@
             <img src="../icons/search.svg" alt="" class="icon"/>
             <input v-model="this.search" type="text" class="input_search" placeholder="Find by name or synopsis">
           </div>
-          <button @click="this.APISearch" class="button_search">Search now</button>
+          <button @click="this.navigateList(this.search)" class="button_search">Search now</button>
         </div>
       </div>
       <img src="../icons/allegorical.svg " alt="Imagem alegorica de carnaval" srcset="" class="img_cover">
@@ -35,14 +36,14 @@
             <img v-else src="../icons/allegorical.svg" alt="" srcset="" class="img_cover img_movie"/>
           </div>
           <div class="div_title_movie">
-            <h1 class="title_movie">{{ item['nome'] }}</h1>
+            <h1 class="title_movie" v-html="item['nome']"></h1>
             <div v-if="this.favorites" @click="this.favoritesAdd(item.id)">
               <img v-if="favorites.includes(item.id)" src="../icons/favoritesLiked.svg" alt="favorite"
                    class="img_favorite"/>
               <img v-else src="../icons/favoritesNoLiked.svg" alt="no favorite" class="img_favorite"/>
             </div>
           </div>
-          <span class="synopses_movie">{{ item['sinopse'] }}</span>
+          <span class="synopses_movie" v-html="item['sinopse']"></span>
 
         </div>
 

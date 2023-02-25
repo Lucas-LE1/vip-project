@@ -57,7 +57,7 @@ export default {
                 this.errorRequest['error'] = error.value.response.data.error
             } else {
                 delete this.errorRequest['error']
-                this.$router.push('/search/items')
+                this.$router.push('/search/items/return=')
             }
 
 

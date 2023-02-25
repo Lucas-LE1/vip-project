@@ -6,9 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\api\Favorites;
 use App\Models\api\Users;
 use ErrorException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
+use function Symfony\Component\String\s;
 
 class FavoritesController extends Controller
 {
@@ -37,18 +41,44 @@ class FavoritesController extends Controller
     /**
      * @throws ErrorException
      */
-    public function searchItems(Request $request): ?JsonResponse
+    public function searchItems(Request $request): Application|ResponseFactory|Response|null
     {
+
+        function removerAcentos($text): string
+        {
+            return preg_replace("/[^\w\s]/", "", iconv("UTF-8", "ASCII//TRANSLIT", $text));
+        }
 
         (string)$token = $request->bearerToken();
         (string)$search = $request['search'];
 
-        $items = Http::get('https://sujeitoprogramador.com/r-api/?api=filmes');
+        $items = Http::get('https://sujeitoprogramador.com/r-api/?api=filmes')->json();
         $ItemsCopy = $items;
         if ($search) {
-            foreach ($ItemsCopy as $key => $values) {
-                $teste = in_array($search,$values);
-                print_r($teste);
+            $items = [];
+            $newSearch = removerAcentos($search);
+
+            foreach ($ItemsCopy as $values) {
+                $movieName = removerAcentos($values['nome']);
+                $movieSinopse = removerAcentos($values['sinopse']);
+
+                $findName = stripos($movieName, $newSearch);
+                $findSinopse = stripos($movieSinopse, $newSearch);
+
+
+                if ($findName !== false or $findSinopse !== false) {
+                    if($findName !== false) {
+                        $tempValue = $movieName;
+                        $word = substr($tempValue,$findName,strlen($newSearch));
+                        $values['nome'] =str_ireplace($search, "<mark class='mark_search_items title_movie'>$word</mark>", $values['nome']);
+                    }
+                    if($findSinopse !== false) {
+                        $tempValue = $movieSinopse;
+                        $word = substr($tempValue,$findSinopse,strlen($newSearch));
+                        $values['sinopse'] =str_ireplace($search, "<mark class='mark_search_items synopses_movie'>$word</mark>", $values['sinopse']);
+                    }
+                    $items[] = $values;
+                }
             }
         }
 
@@ -67,9 +97,10 @@ class FavoritesController extends Controller
             $userFavorites = null;
         }
 
-        return response()->json([
-            'list' => $items->json(),
+        return response([
+            'list' => $items,
             'favorites' => $userFavorites
         ]);
+
     }
 }

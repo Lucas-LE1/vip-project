@@ -129,6 +129,7 @@
     background: #4120ef;
     transition: 1s;
 }
+
 .button_search:active {
     scale: .9;
     transition: 1s;
@@ -141,7 +142,7 @@
 
 .list {
     display: grid;
-    grid-template-columns: 1fr 1fr ;
+    grid-template-columns: 1fr 1fr;
     gap: 2em;
 }
 
@@ -155,6 +156,7 @@
     .list {
         grid-template-columns: 1fr;
     }
+
     .input_div {
 
     }
@@ -216,6 +218,7 @@
 .img_favorite:active {
     scale: .8;
 }
+
 .img_favorite:hover {
     scale: 1.2;
 }
@@ -261,4 +264,10 @@
 .button_save_favorites:active {
     scale: .8;
     transition: .5s;
+}
+
+.mark_search_items {
+    background: #4120ef;
+    padding: 2px 3px 2px 3px;
+    border-radius: 6px;
 }

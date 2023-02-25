@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Http\Controllers\api\JWTController;
 use App\Models\api\Users;
 use Closure;
+use ErrorException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class checkAdmin
      * @param Request $request
      * @param Closure $next
      * @return JsonResponse|Response|RedirectResponse
-     * @throws \ErrorException
+     * @throws ErrorException
      */
     public function handle(Request $request, Closure $next): JsonResponse|Response|RedirectResponse
     {

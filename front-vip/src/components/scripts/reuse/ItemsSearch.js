@@ -30,8 +30,9 @@ const searchAPI = async (uri, data) => {
 
 }
 export default {
-    async beforeMount() {
-        await this.APISearch();
+    async mounted() {
+        await this.APISearch(this.$route.params.search);
+
     },
     data() {
         return {
@@ -39,9 +40,6 @@ export default {
             favorites: favorites,
             error: [],
         }
-    },
-    props: {
-        search: String,
     },
     methods: {
         favoritesAdd(id) {
@@ -56,14 +54,15 @@ export default {
             const data = {
                 "favorites": this.favorites ? this.favorites : []
             }
-            const {favoritesNew, error} = await searchAPI('api/items/insert',data)
+
+            const {favoritesNew, error} = await searchAPI('api/items/insert', data)
             this.favorites = favoritesNew;
             this.error = error;
         },
-        async APISearch() {
+        async APISearch(searchList) {
 
             const data = {
-                "search":this.search
+                "search": searchList
             }
 
             const {list, favoritesNew, error} = await searchAPI(`api/items/search`, data)
@@ -74,6 +73,10 @@ export default {
             if (this.error) {
                 this.$router.push("/users/login")
             }
+        },
+        async navigateList(searchList) {
+            this.$router.push(`/search/items/return=${searchList}`)
+            await this.APISearch(this.search);
         }
     }
 }
