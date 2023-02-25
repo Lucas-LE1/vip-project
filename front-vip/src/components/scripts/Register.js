@@ -36,6 +36,9 @@ const checkForm = () => {
 
 
 export default {
+    mounted() {
+        sessionStorage.clear();
+    },
     components: {HeaderLoRe},
     data() {
         return {

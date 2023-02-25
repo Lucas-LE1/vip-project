@@ -5,7 +5,7 @@ import {env} from "@/env";
 const baseURL = env.API_URL_BASE
 const favorites = ref(null)
 
-const searchAPI = async (uri,favorites = []) => {
+const searchAPI = async (uri, data) => {
 
     const list = ref()
     const favoritesNew = ref()
@@ -15,9 +15,7 @@ const searchAPI = async (uri,favorites = []) => {
     const token = JSON.parse(sessionStorage.getItem('user_token'))
 
     if (token) {
-        await axios.post(baseURL + uri, {
-            "favorites": favorites
-        }, {
+        await axios.post(baseURL + uri, data, {
             headers: {'Authorization': `Bearer ${token['access_token']}`}
         }).then(response => {
             list.value = response.data.list ? response.data.list : null
@@ -26,7 +24,6 @@ const searchAPI = async (uri,favorites = []) => {
             .catch(err => error.value = err.response)
     } else {
         error.value = "user not logged in"
-        this.$router.push("/users/login")
     }
 
     return {list, favoritesNew, error}
@@ -34,21 +31,17 @@ const searchAPI = async (uri,favorites = []) => {
 }
 export default {
     async beforeMount() {
-        const {list, favoritesNew, error} = await searchAPI('api/items/search')
-        this.list = list;
-        this.favorites = favoritesNew;
-        this.error = error;
-
-        if (this.error) {
-            // this.$router.push("/users/login")
-        }
+        await this.APISearch();
     },
     data() {
         return {
             list: [],
-            favorites:favorites,
-            error: []
+            favorites: favorites,
+            error: [],
         }
+    },
+    props: {
+        search: String,
     },
     methods: {
         favoritesAdd(id) {
@@ -60,9 +53,27 @@ export default {
             }
         },
         async saveFavorites() {
-            const {list, favoritesNew, error} = await searchAPI('api/items/insert',this.favorites)
+            const data = {
+                "favorites": this.favorites ? this.favorites : []
+            }
+            const {favoritesNew, error} = await searchAPI('api/items/insert',data)
             this.favorites = favoritesNew;
             this.error = error;
+        },
+        async APISearch() {
+
+            const data = {
+                "search":this.search
+            }
+
+            const {list, favoritesNew, error} = await searchAPI(`api/items/search`, data)
+            this.list = list;
+            this.favorites = favoritesNew;
+            this.error = error;
+
+            if (this.error) {
+                this.$router.push("/users/login")
+            }
         }
     }
 }

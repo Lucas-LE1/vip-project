@@ -10,7 +10,7 @@ const routes = [
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     { path: '/users/login', component: Login },
     { path: '/users/register', component: Register },
-    { path: '/search/items', component: ItemsSearch },
+    { path: '/search/items/return=:search?', component: ItemsSearch },
 ]
 
 export const router = createRouter({

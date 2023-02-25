@@ -26,6 +26,9 @@ const checkForm = () => {
 
 }
 export default {
+    mounted() {
+        sessionStorage.clear();
+    },
     components: {HeaderLoRe},
     data() {
         return {
@@ -43,7 +46,7 @@ export default {
                 this.errorRequest['error'] = error.value.response.data.error
             } else {
                 delete this.errorRequest['error']
-                this.$router.push('/search/items')
+                this.$router.push('/search/items/return=')
             }
 
 

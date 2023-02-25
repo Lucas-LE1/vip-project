@@ -15,9 +15,9 @@
         <div class="input_div">
           <div class="img_input">
             <img src="../icons/search.svg" alt="" class="icon"/>
-            <input type="text" class="input_search" placeholder="Find by name or synopsis">
+            <input v-model="this.search" type="text" class="input_search" placeholder="Find by name or synopsis">
           </div>
-          <button class="button_search">Search now</button>
+          <button @click="this.APISearch" class="button_search">Search now</button>
         </div>
       </div>
       <img src="../icons/allegorical.svg " alt="Imagem alegorica de carnaval" srcset="" class="img_cover">

@@ -69,7 +69,7 @@ class Favorites extends Model
      * @param string|null $token
      * @return array|null
      */
-    public static function select(?int $id_user = null, ?string $token = null): ?array
+    public static function select(?int $id_user = null, ?string $token = null ): ?array
     {
         if (self::$favoritesRead) {
             foreach (self::$favoritesRead as $key => $item) {

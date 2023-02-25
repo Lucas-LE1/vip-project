@@ -41,14 +41,22 @@ class FavoritesController extends Controller
     {
 
         (string)$token = $request->bearerToken();
+        (string)$search = $request['search'];
+
         $items = Http::get('https://sujeitoprogramador.com/r-api/?api=filmes');
+        $ItemsCopy = $items;
+        if ($search) {
+            foreach ($ItemsCopy as $key => $values) {
+                $teste = in_array($search,$values);
+                print_r($teste);
+            }
+        }
 
         if (!$token) {
             return null;
         }
         $validated = JWTController::JWTValidate($token);
         $id_user = $validated['id'];
-
 
         $validate = (new Users)::is_admin($id_user);
 
