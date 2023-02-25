@@ -27,7 +27,10 @@
     <div class="div_list">
       <div class="title_list">
         <h1 class="recommend_movie">recommend movie</h1>
-        <button @click="this.saveFavorites" class="button_save_favorites">Save Favorites</button>
+        <div class="options_items">
+          <button @click="this.saveFavorites" class="button_save_favorites">Save Favorites</button>
+          <button @click="this.logout" class="button_logout_user button_save_favorites ">Logout</button>
+        </div>
       </div>
       <div class="list">
         <div class="item" v-for="item in this.list">

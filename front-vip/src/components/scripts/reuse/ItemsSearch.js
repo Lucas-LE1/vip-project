@@ -21,11 +21,11 @@ const searchAPI = async (uri, data) => {
             list.value = response.data.list ? response.data.list : null
             favoritesNew.value = response.data.favorites
         })
-            .catch(err => error.value = err.response)
+            .catch(err => error.value = err.response.data.error)
+
     } else {
         error.value = "user not logged in"
     }
-
     return {list, favoritesNew, error}
 
 }
@@ -39,6 +39,7 @@ export default {
             list: [],
             favorites: favorites,
             error: [],
+            search:""
         }
     },
     methods: {
@@ -71,12 +72,19 @@ export default {
             this.error = error;
 
             if (this.error) {
+                this.EmitEvent()
                 this.$router.push("/users/login")
             }
         },
         async navigateList(searchList) {
             this.$router.push(`/search/items/return=${searchList}`)
             await this.APISearch(this.search);
+        },
+        logout() {
+            this.$router.push("/users/login")
+        },
+        EmitEvent() {
+            this.$emit("openModal", {message:this.error.value});
         }
     }
 }

@@ -43,13 +43,11 @@ export default {
         async init() {
             const {error} = await LoRe(checkForm, 'api/users/login')
             if (error.value) {
-                this.errorRequest['error'] = error.value.response.data.error
+                this.errorRequest['error'] = error.value
             } else {
                 delete this.errorRequest['error']
                 this.$router.push('/search/items/return=')
             }
-
-
         }
     }
 }

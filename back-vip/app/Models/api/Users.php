@@ -75,7 +75,9 @@ class Users extends Model
                     return $item;
                 }
             } elseif ($data) {
-                if ($item->email == $data['email']) {
+                $emailOld = strtolower($item->email);
+                $emailNew = strtolower($data['email']);
+                if ($emailOld === $emailNew ) {
                     return $item;
                 }
             }

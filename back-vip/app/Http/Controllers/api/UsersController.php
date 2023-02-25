@@ -16,7 +16,6 @@ class UsersController extends JWTController
     {
         $this->model = new Users();
         date_default_timezone_set('America/Sao_Paulo');
-
     }
 
     /**

@@ -1,1 +1,20 @@
-[{"id":0,"email":"cred@vip.com","password":"$2y$10$X9qLmT9oSKpbfFCDJ7r5XuD7YR90KSjAVhmquMDtYzdoxJzJlA5Hq","admin":1},{"id":1,"email":"vip@vip.com","password":"$2y$10$Eg9v6rkbh5NGnnY1zuOewO87UnU16CMXS34tC9gehh9sN7KYFFw1C","admin":0},{"id":2,"email":"lucas@vip.com","password":"$2y$10$2eGwwgf7vGBdXeYUcG0rceIb2LICNxaZN5CjSwwGnExp.JTe1Bijm","admin":1}]
+[
+    {
+        "id": 0,
+        "email": "cred@vip.com",
+        "password": "$2y$10$X9qLmT9oSKpbfFCDJ7r5XuD7YR90KSjAVhmquMDtYzdoxJzJlA5Hq",
+        "admin": 1
+    },
+    {
+        "id": 1,
+        "email": "vip@vip.com",
+        "password": "$2y$10$Eg9v6rkbh5NGnnY1zuOewO87UnU16CMXS34tC9gehh9sN7KYFFw1C",
+        "admin": 0
+    },
+    {
+        "id": 2,
+        "email": "lucas@vip.com",
+        "password": "$2y$10$2eGwwgf7vGBdXeYUcG0rceIb2LICNxaZN5CjSwwGnExp.JTe1Bijm",
+        "admin": 1
+    }
+]

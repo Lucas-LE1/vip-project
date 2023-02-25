@@ -244,6 +244,11 @@
     text-transform: capitalize;
 }
 
+.options_items {
+    display: flex;
+    gap: 15px;
+}
+
 .button_save_favorites {
     padding: 0 30px;
     border-radius: 5px;
@@ -254,6 +259,7 @@
     font-size: .85em;
     line-height: .5em;
     color: #FFFFFF;
+    height: 100%;
 }
 
 .button_save_favorites:hover {
@@ -264,6 +270,14 @@
 .button_save_favorites:active {
     scale: .8;
     transition: .5s;
+}
+
+.button_logout_user,
+.button_logout_user:hover
+{
+    border: 2px solid #6246EA;
+    background: transparent;
+
 }
 
 .mark_search_items {

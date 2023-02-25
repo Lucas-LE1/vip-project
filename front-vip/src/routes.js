@@ -8,9 +8,9 @@ import ItemsSearch from "@/components/views/ItemsSearch.vue";
 
 const routes = [
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
-    { path: '/users/login', component: Login },
-    { path: '/users/register', component: Register },
-    { path: '/search/items/return=:search?', component: ItemsSearch },
+    { path: '/users/login', name:'login', component: Login },
+    { path: '/users/register', name:'register',component: Register },
+    { path: '/search/items/return=:search?', name:'searchItems',component: ItemsSearch },
 ]
 
 export const router = createRouter({

@@ -19,7 +19,7 @@ class userExists
      * Handle an incoming request.
      * @param Request $request
      * @param Closure $next
-     * @return Response|RedirectResponse|JsonResponse
+     * @return Response|RedirectResponse|JsonResponse|null
      */
     public function handle(Request $request, Closure $next): Response | RedirectResponse | JsonResponse | null
     {
@@ -34,8 +34,6 @@ class userExists
             'email'=>$request['email'],
             'password'=>Hash::make($request['password'])
         ];
-
-
 
         $validated = Users::email_in_use($data);
 

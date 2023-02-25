@@ -7,7 +7,7 @@
     <span class="routes">
       | <router-link to="/users/login">Login</router-link> |
       <router-link to="/users/register">Register</router-link> |
-      <router-link to="/search/items">Search Items</router-link> |
+      <router-link to="/search/items/return=">Search Items</router-link> |
 
     </span>
   </div>

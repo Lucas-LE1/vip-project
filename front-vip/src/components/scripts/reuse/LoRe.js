@@ -15,8 +15,6 @@ export const LoRe = async (checkForm, uri) => {
         return true;
     }
 
-    console.log(EmptyObject())
-
     const publicEnvVar = env.API_URL_BASE;
 
     if (EmptyObject()) {
@@ -31,10 +29,11 @@ export const LoRe = async (checkForm, uri) => {
                     JSON.stringify(response.data))
             })
             .catch(async (err) => {
-                error.value = await err
+                error.value = err.response.data.error
                 // console.log(error.value)
             })
+    } else {
+        error.value = "FILL IN THE FIELDS CORRECTLY\n";
     }
     return {error};
-eee
 }

@@ -50,17 +50,18 @@ export default {
             errorRequest: {}
         }
     },
+
     methods: {
         async init() {
             const {error} = await LoRe(checkForm, 'api/users/insert')
+
             if (error.value) {
-                this.errorRequest['error'] = error.value.response.data.error
+                this.errorRequest['error'] = error.value
             } else {
                 delete this.errorRequest['error']
                 this.$router.push('/search/items/return=')
+
             }
-
-
         }
     }
 }
