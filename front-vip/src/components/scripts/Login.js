@@ -28,6 +28,8 @@ const checkForm = () => {
 export default {
     mounted() {
         sessionStorage.clear();
+        email.value = "";
+        password.value = "";
     },
     components: {HeaderLoRe},
     data() {
