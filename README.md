@@ -23,7 +23,6 @@ Para iniciar a instalação da aplicação e seus teste, faça os seguintes coma
 Retomando, atendendo os requisitos acima:
 
 ``
-HTTPS:
 git clone https://github.com/Lucas-LE1/vip-project.git
 ``
 ---
