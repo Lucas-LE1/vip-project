@@ -5,7 +5,7 @@ import {LoRe} from "@/components/scripts/reuse/LoRe";
 
 const email = ref('')
 const password = ref('')
-const admin = ref()
+const admin = ref(null)
 
 const errors = ref({})
 
