@@ -5,7 +5,7 @@ import {LoRe} from "@/components/scripts/reuse/LoRe";
 
 const email = ref('')
 const password = ref('')
-const admin = ref(null)
+const admin = ref('')
 
 const errors = ref({})
 
@@ -20,7 +20,7 @@ const checkForm = () => {
     } else {
         delete errors.value['password']
     }
-    if (typeof (admin.value) != "string") {
+    if (admin.value === "") {
         errors.value['admin'] = admin;
     } else {
         delete errors.value['admin']
