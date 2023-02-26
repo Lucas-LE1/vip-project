@@ -63,6 +63,8 @@ private function configureDefaults(array $config): void
 Retornando à pasta raiz, `back-vip`, execute o comando `php artisan serve` para iniciar o servidor em desenvolvimento e
 siga os proximos passos.
 
+>Observação: Abra outra instância do terminal para prosseguir!
+
 ### Configurando o Front End
 
 Abra a pasta do projeto e configure o front end executando no console:
