@@ -21,11 +21,12 @@ const searchAPI = async (uri, data) => {
             list.value = response.data.list ? response.data.list : null
             favoritesNew.value = response.data.favorites
         })
-            .catch(err => error.value = err.response.data.error)
+            .catch(err => error.value = err.response? err.response.data.error : err)
 
     } else {
         error.value = "user not logged in"
     }
+
     return {list, favoritesNew, error}
 
 }
@@ -36,7 +37,7 @@ export default {
     },
     data() {
         return {
-            list: [],
+            list: Array,
             favorites: favorites,
             error: [],
             search: ""
@@ -62,7 +63,7 @@ export default {
 
             this.$emit('openModal', {
                 message: this.favorites ? "favorites successfully saved" :
-                    this.error.value
+                    this.error
             })
         },
         async APISearch(searchList) {
@@ -89,7 +90,7 @@ export default {
             this.$router.push("/users/login")
         },
         EmitEvent() {
-            this.$emit("openModal", {message: this.error.value});
+            this.$emit("openModal", {message: this.error});
         }
     }
 }
