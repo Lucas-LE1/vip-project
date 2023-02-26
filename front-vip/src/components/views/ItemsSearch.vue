@@ -24,15 +24,22 @@
       <img src="../icons/allegorical.svg " alt="Imagem alegorica de carnaval" srcset="" class="img_cover">
     </header>
 
+
     <div class="div_list">
       <div class="title_list">
         <h1 class="recommend_movie">recommend movie</h1>
         <div class="options_items">
-          <button @click="this.saveFavorites" class="button_save_favorites">Save Favorites</button>
+          <button @click="this.saveFavorites" v-bind:disabled="this.list.length === 0" class="button_save_favorites">Save Favorites</button>
           <button @click="this.logout" class="button_logout_user button_save_favorites ">Logout</button>
         </div>
       </div>
-      <div class="list">
+      <div class="is_empty_list" v-if="this.list.length === 0">
+        <h1 class="title_movie">Sorry we couldn't find any matches for movies from
+        </h1>
+        <mark v-if="this.$route.params.search" class="mark_search_items title_movie "> {{this.$route.params.search}}
+        </mark>
+      </div>
+      <div v-else class="list">
         <div class="item" v-for="item in this.list">
           <div class="div_img">
             <img v-if="item['foto']" :src="item['foto']" alt="" srcset="" class="img_cover img_movie"/>

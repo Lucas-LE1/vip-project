@@ -30,7 +30,6 @@ export const LoRe = async (checkForm, uri) => {
             })
             .catch(async (err) => {
                 error.value = err.response.data.error
-                // console.log(error.value)
             })
     } else {
         error.value = "FILL IN THE FIELDS CORRECTLY\n";

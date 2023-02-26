@@ -6,6 +6,16 @@
   </div>
 
 </template>
+
+<style scoped>
+.modal_div {
+  position: fixed;
+  justify-self: flex-end;
+  z-index: 9998;
+  margin-top: 20px;
+}
+</style>
+
 <script setup>
 import Modal from "@/components/views/Modal.vue";
 import {ref} from "vue";
@@ -17,8 +27,8 @@ const errorChange = (props) => {
   message.value = props.message
 
   state.value = !state.value
-    setTimeout(()=> {
+  setTimeout(() => {
     state.value = !state.value
-  },3000)
+  }, 3000)
 }
 </script>

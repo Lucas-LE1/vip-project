@@ -20,13 +20,7 @@ export default {
 </template>
 
 <style>
-.modal_div {
-  position: absolute;
-  display: flex;
-  z-index: 9998;
-  justify-self: flex-end;
-  margin-top: 20px;
-}
+
 
 .modal-wrapper {
   display: flex;

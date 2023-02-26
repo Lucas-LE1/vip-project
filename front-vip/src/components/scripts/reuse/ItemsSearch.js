@@ -39,7 +39,7 @@ export default {
             list: [],
             favorites: favorites,
             error: [],
-            search:""
+            search: ""
         }
     },
     methods: {
@@ -59,6 +59,11 @@ export default {
             const {favoritesNew, error} = await searchAPI('api/items/insert', data)
             this.favorites = favoritesNew;
             this.error = error;
+
+            this.$emit('openModal', {
+                message: this.favorites ? "favorites successfully saved" :
+                    this.error.value
+            })
         },
         async APISearch(searchList) {
 
@@ -84,7 +89,7 @@ export default {
             this.$router.push("/users/login")
         },
         EmitEvent() {
-            this.$emit("openModal", {message:this.error.value});
+            this.$emit("openModal", {message: this.error.value});
         }
     }
 }
