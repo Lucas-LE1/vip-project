@@ -38,6 +38,9 @@ const checkForm = () => {
 export default {
     mounted() {
         sessionStorage.clear();
+        email.value = "";
+        password.value = "";
+        admin.value = "";
     },
     components: {HeaderLoRe},
     data() {
