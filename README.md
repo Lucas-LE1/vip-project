@@ -25,6 +25,8 @@ Retomando, atendendo os requisitos acima:
 ``
 git clone https://github.com/Lucas-LE1/vip-project.git
 ``
+
+Após isso, entre na pasta do projeto com o comando `cd vip-project`.
 ---
 
 ### Configurando o Back End
